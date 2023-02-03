@@ -1,42 +1,65 @@
 import 'package:flutter/material.dart';
 
 class TransactionForm extends StatelessWidget {
-  TransactionForm({super.key});
+  final titleController = TextEditingController();
+  final valueController = TextEditingController();
 
-  final title_controller = TextEditingController();
-  final value_Controller = TextEditingController();
+  final void Function(String, double) onSubmit;
 
+  TransactionForm(this.onSubmit, {Key? key}) : super(key: key);
+
+  _submitForm() {
+    final title = titleController.text;
+    final value = double.tryParse(valueController.text) ?? 0;
+
+    if (title.isEmpty || value <= 0) {
+      return;
+    }
+
+    onSubmit(title, value);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return             Card(
-              elevation: 5, 
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                  TextField(
-                    controller: title_controller,
-                    decoration: InputDecoration(
-                      labelText: 'Titulo' ,
+    return Card(
+      elevation: 5,
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            TextField(
+              controller: titleController,
+              onSubmitted: (_) => _submitForm(),
+              decoration: const InputDecoration(
+                labelText: 'Título',
+              ),
+            ),
+            TextField(
+              controller: valueController,
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
+              onSubmitted: (_) => _submitForm(),
+              decoration: const InputDecoration(
+                labelText: 'Valor (R\$)',
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                TextButton(
+                  child: const Text(
+                    'Nova Transação',
+                    style: TextStyle(
+                      color: Colors.purple,
                     ),
                   ),
-                  TextField(
-                    controller: value_Controller,
-                    decoration: InputDecoration(
-                      labelText: 'Valor (R\$)',
-                    ),
-                  ), 
-                  TextButton( 
-                    child: Text("Nova Transação"), 
-                    onPressed: () {
-                      print(value_Controller.text);
-                      print(title_controller.text);
-                    },
-                  )
-                ], 
-                ),
-              )  
+                  onPressed: _submitForm,
+                )
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
