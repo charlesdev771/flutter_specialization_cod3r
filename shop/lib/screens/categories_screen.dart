@@ -10,11 +10,7 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Receitas"),
-      ),
-      body: GridView(
+    return GridView(
         padding: EdgeInsets.all(25),
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,
@@ -25,7 +21,6 @@ class CategoriesScreen extends StatelessWidget {
         children: dummyCategories.map((cat) {
           return CategoryItem(cat);
         }).toList(),
-      ),
     );
   }
 }
