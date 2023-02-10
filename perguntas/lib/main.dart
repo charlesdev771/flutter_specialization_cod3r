@@ -21,7 +21,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
       'texto': 'Qual é o seu framework favorito?',
       'respostas': [
         {'texto': 'django', 'pontuacao': 10},
-        {'texto': 'fkutter', 'pontuacao': 5},
+        {'texto': 'flutter', 'pontuacao': 5},
         {'texto': 'laravel', 'pontuacao': 3},
         {'texto': 'node', 'pontuacao': 1},
       ],
